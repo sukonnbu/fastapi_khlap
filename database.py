@@ -58,7 +58,7 @@ async def update_freeboard(id: str, data: dict):
                 data.pop(key)
                 return
             next = True
-
+    print(data)
 
     if len(data) < 1:
         return False
