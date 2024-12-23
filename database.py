@@ -51,16 +51,17 @@ async def delete_freeboard(id: str):
 
 
 async def update_freeboard(id: str, data: dict):
-    for key, value in data.items():
+    local_data = data.copy()
+    for key, value in local_data.items():
         if value is None:
-            data.pop(key)
+            local_data.pop(key)
 
-    if len(data) < 1:
+    if len(local_data) < 1:
         return False
     freeboard = await freeboard_collection.find_one({"_id": ObjectId(id)})
     if freeboard:
         updated_freeboard = await freeboard_collection.update_one(
-            {"_id": ObjectId(id)}, {"$set": data}
+            {"_id": ObjectId(id)}, {"$set": local_data}
         )
         if updated_freeboard:
             return True
