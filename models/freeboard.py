@@ -9,7 +9,7 @@ class FreeBoardSchema(BaseModel):
     content: str = Field(...)
     image: str = Field(...)
     updated_at: str = Field(...)
-    comments: Optional[dict]
+    comments: list[dict[str, str]] = Field(...)
 
     class Config:
         json_schema_extra = {
@@ -31,11 +31,11 @@ class FreeBoardSchema(BaseModel):
 
 
 class UpdateFreeBoardModel(BaseModel):
-    title: Optional[str]
-    content: Optional[str]
-    image: Optional[str]
-    updated_at: Optional[str]
-    comments: Optional[list[dict[str, str]]]
+    title: str
+    content: str
+    image: str
+    updated_at: str
+    comments: list[dict[str, str]]
 
     class Config:
         json_schema_extra = {
