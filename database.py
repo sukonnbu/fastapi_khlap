@@ -12,7 +12,7 @@ database = client.KHLaP
 freeboard_collection = database.get_collection("freeboard")
 used_collection = database.get_collection("used")
 
-
+# FREEBOARD
 def freeboard_helper(thread) -> dict:
     return {
         "id": str(thread["_id"]),
@@ -21,6 +21,7 @@ def freeboard_helper(thread) -> dict:
         "content": thread["content"],
         "image": thread["image"],
         "updated_at": thread["updated_at"],
+        "comments": thread["comments"],
     }
 
 
@@ -61,7 +62,17 @@ async def update_freeboard(id: str, data: dict):
         return False
 
 
+# USED_ITEM
 def used_helper(thread) -> dict:
     return {
         "id": str(thread["_id"]),
+        "title": thread["title"],
+        "username": thread["username"],
+        "itemname": thread["itemname"],
+        "sold": thread["sold"],
+        "price": thread["price"],
+        "else": thread["else"],
+        "image": thread["image"],
+        "updated_at": thread["updated_at"],
+        "comments": thread["comments"],
     }
