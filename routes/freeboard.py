@@ -2,14 +2,13 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 from database import (
-freeboard_helper,
     add_freeboard,
     delete_freeboard,
     retrieve_freeboard,
     retrieve_freeboards,
     update_freeboard,
 )
-from models.response import (ResponseModel, ErrorResponseModel)
+from models.response import ResponseModel, ErrorResponseModel
 from models.freeboard import (
     FreeBoardSchema,
 )
@@ -37,6 +36,6 @@ async def get_freeboard_by_id(id: str):
 
 
 @router.put("/{id}", response_description="Freeboard updated into the database")
-async def update_freeboard_by_id(id:str, freeboard: FreeBoardSchema = Body(...)):
+async def update_freeboard_by_id(id: str, freeboard: FreeBoardSchema = Body(...)):
     updated_freeboard = await update_freeboard(id, jsonable_encoder(freeboard))
     return ResponseModel(updated_freeboard, "Freeboard updated successfully.")

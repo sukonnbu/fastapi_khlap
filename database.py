@@ -12,6 +12,7 @@ database = client.KHLaP
 freeboard_collection = database.get_collection("freeboard")
 used_collection = database.get_collection("used")
 
+
 # FREEBOARD
 def freeboard_helper(thread) -> dict:
     return {
@@ -71,8 +72,45 @@ def used_helper(thread) -> dict:
         "itemname": thread["itemname"],
         "sold": thread["sold"],
         "price": thread["price"],
-        "else": thread["else"],
+        "others": thread["others"],
         "image": thread["image"],
         "updated_at": thread["updated_at"],
         "comments": thread["comments"],
     }
+
+
+async def retrieve_used(id: str) -> dict:
+    used = await used_collection.find_one({"_id": ObjectId(id)})
+    if used:
+        return used_helper(used)
+
+
+async def retrieve_used_items():
+    used_items = []
+    async for used in used_collection.find():
+        used_items.append(used_helper(used))
+    return used_items
+
+
+async def add_used(used_data: dict) -> dict:
+    used = await used_collection.insert_one(used_data)
+    new_used = await used_collection.find_one({"_id": used.inserted_id})
+    return used_helper(new_used)
+
+
+async def delete_used(id: str):
+    used = await used_collection.find_one({"_id": ObjectId(id)})
+    if used:
+        await used_collection.delete_one({"_id": used.inserted_id})
+        return True
+
+
+async def update_used(id: str, data: dict):
+    used = await used_collection.find_one({"_id": ObjectId(id)})
+    if used:
+        updated_used = await used_collection.update_one(
+            {"_id": ObjectId(id)}, {"$set": data}
+        )
+        if updated_used:
+            return True
+        return False

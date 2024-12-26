@@ -11,7 +11,7 @@ app.add_middleware(
 
 app.include_router(freeboard_router, tags=["Freeboard"], prefix="/freeboard")
 
-app.include_router(used_router, tags=["Us"], prefix="/used")
+app.include_router(used_router, tags=["UsedItem"], prefix="/used")
 
 
 @app.get("/", tags=["Root"])
