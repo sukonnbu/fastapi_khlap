@@ -7,7 +7,7 @@ class FreeBoardSchema(BaseModel):
     content: str = Field(...)
     image: str = Field(...)
     updated_at: str = Field(...)
-    comments: list[dict[str, str]] = Field(...)
+    comments: list = Field(...)
 
     class Config:
         json_schema_extra = {

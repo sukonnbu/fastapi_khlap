@@ -15,6 +15,7 @@ used_collection = database.get_collection("used")
 
 # FREEBOARD
 def freeboard_helper(thread) -> dict:
+    print(thread)
     return {
         "id": str(thread["_id"]),
         "title": thread["title"],
