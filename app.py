@@ -4,7 +4,7 @@ from routes.freeboard import router as freeboard_router
 from routes.useditem import router as used_router
 
 app = FastAPI()
-origins = ["https://localhost:3000", "https://kyungheelap.com", "https://www.kyungheelap.com"]
+origins = ["*"]
 app.add_middleware(
     CORSMiddleware, allow_origins=origins, allow_methods=["*"], allow_headers=["*"]
 )
