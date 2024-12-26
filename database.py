@@ -2,6 +2,7 @@ import os
 import motor.motor_asyncio
 from bson import ObjectId
 from dotenv import load_dotenv
+from fastapi.encoders import jsonable_encoder
 
 load_dotenv()
 
@@ -15,7 +16,6 @@ used_collection = database.get_collection("used")
 
 # FREEBOARD
 def freeboard_helper(thread) -> dict:
-    print(thread)
     return {
         "id": str(thread["_id"]),
         "title": thread["title"],
